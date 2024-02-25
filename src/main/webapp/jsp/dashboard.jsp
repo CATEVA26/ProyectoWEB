@@ -57,6 +57,8 @@
                 <!-- CUENTAS -->
                 <header class="header_contenedor">
                     <h3>Cuentas</h3>
+					<h3>${notificacion}</h3>
+                    
                 </header>
 
 
@@ -72,8 +74,8 @@
 								<p>${cuenta.total}</p>
 							</div>
 							<div class="botones_transacciones">
-
-								<a href=""> <iconify-icon
+<!-- ---------------------------------------------------------------------------------------------------- -->
+								<a href="RegistrarMovimientosController?ruta=nuevoingreso&idCuenta=${cuenta.id}"> <iconify-icon
 										icon="ph:arrow-down-bold" width="18"></iconify-icon> <span
 									class="texto_boton">Depositar</span>
 								</a> <a href=""> <iconify-icon

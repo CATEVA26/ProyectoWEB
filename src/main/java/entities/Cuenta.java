@@ -23,10 +23,6 @@ public class Cuenta implements Serializable {
     private static final long serialVersionUID = 1L;
     
 
-
-	
-
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="idCuenta")
@@ -54,7 +50,71 @@ public class Cuenta implements Serializable {
 		this.total = total;
 	}
 
-    /** Getters y Setters **/
+	/**
+     * @param nombre
+     */
+    public void Cuenta(String nombre) {
+        // TODO implement here
+    }
+
+    /**
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+	public static List<Cuenta> getSumarized() { //obtener todas las cuentas
+    	EntityManager em = Persistence.createEntityManagerFactory("persistencia").createEntityManager();
+    	//SELECT * FROM CUENTA
+    	String consulta = "SELECT c FROM Cuenta c";
+    	Query query = em.createQuery(consulta);
+    	return (List<Cuenta>) query.getResultList(); 
+    	}
+
+    /**
+     * @param cuenta 
+     * @return
+     */
+    
+    /**
+     * @param idCuenta 
+     * @return
+     */
+    public static Cuenta getById(int idCuenta) { // obtener el id de la cuenta para guardar el ingreso
+    	// Conectarse a la base de datos
+    	EntityManager em = Persistence.createEntityManagerFactory("persistencia").createEntityManager();
+    	return em.find(Cuenta.class, idCuenta); // este puede ser usado solo cuando se necesite un solo valor de retorno
+    }
+
+    /**
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+	public static List<Cuenta> getAll() {
+    	return null;
+    }
+
+    
+    public boolean update(Cuenta cuenta) {
+        // TODO implement here
+        return false;
+    }
+
+    /**
+     * @param idCuenta 
+     * @return
+     */
+    public boolean delete(int idCuenta) {
+        // TODO implement here
+        return false;
+    }
+
+    /**
+     * @param valor
+     */
+    public void ajustarSaldo(double valor) {
+        // TODO implement here
+    }
+    
+/*********************** Getters y Setters ************************/
 
     
     public Integer getId() {
@@ -81,65 +141,5 @@ public class Cuenta implements Serializable {
 		this.total = total;
 	}
 
-	/**
-     * @param nombre
-     */
-    public void Cuenta(String nombre) {
-        // TODO implement here
-    }
-
-    /**
-     * @param idCuenta 
-     * @return
-     */
-    public static Cuenta getById(int idCuenta) {
-    	EntityManager em = Persistence.createEntityManagerFactory("persistencia").createEntityManager();
-    	return em.find(Cuenta.class, idCuenta);
-    }
-
-    /**
-     * @return
-     */
-    @SuppressWarnings("unchecked")
-	public static List<Cuenta> getAll() {
-    	return null;
-    }
-
-    /**
-     * @return
-     */
-    @SuppressWarnings("unchecked")
-	public static List<Cuenta> getSumarized() {
-    	EntityManager em = Persistence.createEntityManagerFactory("persistencia").createEntityManager();
-    	//SELECT * FROM CUENTA
-    	String consulta = "SELECT c FROM Cuenta c";
-    	Query query = em.createQuery(consulta);
-    	return (List<Cuenta>) query.getResultList(); 
-    	}
-
-    /**
-     * @param cuenta 
-     * @return
-     */
-    public boolean update(Cuenta cuenta) {
-        // TODO implement here
-        return false;
-    }
-
-    /**
-     * @param idCuenta 
-     * @return
-     */
-    public boolean delete(int idCuenta) {
-        // TODO implement here
-        return false;
-    }
-
-    /**
-     * @param valor
-     */
-    public void ajustarSaldo(double valor) {
-        // TODO implement here
-    }
    
 }

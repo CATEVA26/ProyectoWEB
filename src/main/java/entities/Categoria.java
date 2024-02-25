@@ -15,7 +15,7 @@ import javax.persistence.Query;
 import javax.persistence.Table;
 
 /**
- * @author Carlos Iñiguez
+ * @author Grupo 7
  */
 @Entity
 @Table(name="Categoria")
@@ -51,29 +51,36 @@ public class Categoria implements Serializable {
     private TipoMovimiento tipo;
 
     
-    public Integer getId() {
-		return id;
-	}
+    /**
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+	public static List<Categoria> getAllOfIngresoType() { // Obtiene las categorias del tipo ingreso
+    	// Conectarse a la base de datos, realizar operaciones
+    	EntityManager em = Persistence.createEntityManagerFactory("persistencia").createEntityManager();
+    	// Query de la base de datos. (t.tipo= :mitipo") El miTipo es un parametro que voy a ingresar
+    	String consultaJPQL = "SELECT t FROM Categoria t WHERE t.tipo= :mitipo";
+    	// Preparar la consulta
+    	Query query = em.createQuery(consultaJPQL ); //Paquete javax persistence.
+    	// Aqui ya inserta el paramtro
+    	query.setParameter("mitipo", TipoMovimiento.INGRESO);
+    	// Devuelve las categorias y hace el cast
+        return (List<Categoria>)query.getResultList();
+        
+    }
+    
+    /**
+     * @param idCategoria 
+     * @return
+     */
+    public static Categoria getById(int idCategoria) { // este va a utilizarse para guardar el Ingreso
+    	EntityManager em = Persistence.createEntityManagerFactory("persistencia").createEntityManager();
+    	String consultaJPQL = "SELECT c FROM Categoria c WHERE c.id= :miCategoria";
+    	Query query = em.createQuery(consultaJPQL);
+    	query.setParameter("miCategoria", idCategoria);
+    	return (Categoria)query.getSingleResult();
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public TipoMovimiento getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(TipoMovimiento tipo) {
-		this.tipo = tipo;
-	}
 
 	/**
      * @param categoria 
@@ -84,13 +91,7 @@ public class Categoria implements Serializable {
         return false;
     }
 
-    /**
-     * @param idCategoria 
-     * @return
-     */
-    public static Categoria getById(int idCategoria) {
-    	return null;
-    }
+   
 
     /**
      * @return
@@ -118,20 +119,7 @@ public class Categoria implements Serializable {
         return false;
     }
 
-    /**
-     * @return
-     */
-    @SuppressWarnings("unchecked")
-	public static List<Categoria> getAllOfIngresoType() {
-    	EntityManager em = Persistence.createEntityManagerFactory("persistencia").createEntityManager();
-    	String consultaJPQL = "SELECT t FROM Categoria t WHERE t.tipo= :mitipo";
-    	Query query = em.createQuery(consultaJPQL ); //Paquete javax persistence.
-    	query.setParameter("mitipo", TipoMovimiento.INGRESO);
-    	
-        return (List<Categoria>)query.getResultList();
-        
-    }
-
+    
     /**
      * @return
      */
@@ -149,4 +137,29 @@ public class Categoria implements Serializable {
         return null;
     }
 
+    
+    /********************** GETTERS Y SETTERS******************************/
+    public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public TipoMovimiento getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoMovimiento tipo) {
+		this.tipo = tipo;
+	}
 }
