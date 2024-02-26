@@ -22,7 +22,7 @@ import javax.persistence.TemporalType;
  * @author Grupo 7
  */
 @Entity
-@Table(name = "Movimiento")
+@Table(name="Movimiento")
 public class Movimiento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -33,13 +33,14 @@ public class Movimiento implements Serializable {
 	public Movimiento() {
 	}
 
-	public Movimiento(String concepto2, Date fecha2, double valor, Cuenta cuenta, Categoria categoria,
-			TipoMovimiento ingreso) {
-		this.concepto = concepto2;
-		this.fecha = fecha2;
+	public Movimiento(String concepto, Date fecha, double valor, Cuenta cuenta, Categoria categoria,
+			TipoMovimiento movimiento) {
+		this.concepto = concepto;
+		this.fecha = fecha;
 		this.monto = valor;
 		this.destino = cuenta;
 		this.categoria = categoria;
+		this.tipo=movimiento;
 	}
 
 	@Id
@@ -141,12 +142,12 @@ public class Movimiento implements Serializable {
 	}
 	
 	/*****************Getter y setters********************/
-
+/*
 	@Override
 	public String toString() {
 		return this.concepto + " " + this.getCategoria().getId();
 	}
-
+*/
 	public Integer getId() {
 		return id;
 	}

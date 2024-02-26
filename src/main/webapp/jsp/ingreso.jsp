@@ -10,7 +10,13 @@
     <title>Ingreso</title>
     <link rel="stylesheet" href="css/styleMovimientos.css">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+    .notificacion{
+      text-align: center;
+	}
+    </style>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    
 
 </head>
 
@@ -22,11 +28,11 @@
             <p>Usuario</p>
         </button>
         <div>
-            <a href="">
+            <a href="DashboardController?ruta=ver">
                 <iconify-icon class="icono" icon="carbon:view-filled" width="18"></iconify-icon>
                 <span>Dashboard</span>
             </a>
-            <a href="">
+            <a href="ConfiguracionController?ruta=configuracion">
                 <iconify-icon class="icono" icon="carbon:view-filled" width="18"></iconify-icon>
                 <span>Configuración</span>
             </a>
@@ -37,13 +43,13 @@
         <div class="contenedor_default dash_head">
             <header class="header_contenedor">
                 <h3>${cuenta.nombre}</h3>
-                <button class="boton boton2 color_inactivo_boton">
+                <button onclick="ocultarMonto()" class="boton boton2 color_inactivo_boton">
                     <iconify-icon class="icono" icon="carbon:view-filled" width="18"></iconify-icon>
                 </button>
             </header>
             <main class="balance">
                 <iconify-icon class="icono" icon="cryptocurrency:usd" style="color: white;" width="32"></iconify-icon>
-                <h1>${cuenta.total}</h1>
+                <h1 id="monto">${cuenta.total}</h1>
             </main>
         </div>
 
@@ -71,10 +77,24 @@
                 <div class="btn-confirmacion">
                     <input type="submit" class="boton boton1" value="Depositar">
                 </div>
+                
+                <div class="notificacion">
+                <h3>${notificacion}</h3>
+                </div>
+                
             </form>
         </div>
     </main>
-
+<script>
+function ocultarMonto() {
+    var monto = document.getElementById('monto');
+    if (monto.textContent == ${cuenta.total}) {
+    	monto.textContent = '*****';
+    } else {
+    	monto.textContent = ${cuenta.total} ;
+    }
+}
+</script>
 </body>
 
 </html>

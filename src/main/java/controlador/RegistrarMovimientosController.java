@@ -42,7 +42,7 @@ public class RegistrarMovimientosController extends HttpServlet {
 		case "nuevoingreso":
 			nuevoIngreso(request, response);
 			break;
-		case "guardarIngreso":
+		case "guardaringreso":
 			guardarIngreso(request,response);
 			break;
 		case "ver":
@@ -82,7 +82,7 @@ public class RegistrarMovimientosController extends HttpServlet {
 		} else {
 			request.setAttribute("notificacion", "Error al ingresar");
 		}
-		ruteador(request, response);
+		request.getRequestDispatcher("/jsp/ingreso.jsp").forward(request,response);
 
 	}
 	

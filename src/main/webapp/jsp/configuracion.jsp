@@ -22,11 +22,11 @@
             <p>Usuario</p>
         </button>
         <div>
-            <a href="dashboard.html">
+            <a href="DashboardController?ruta=ver">
                 <iconify-icon class="icono" icon="carbon:view-filled" width="18"></iconify-icon>
                 <span>Dashboard</span>
             </a>
-            <a href="configuracion.html">
+            <a href="ConfiguracionController?ruta=configuracion">
                 <iconify-icon class="icono" icon="carbon:view-filled" width="18"></iconify-icon>
                 <span>ConfiguraciÃ³n</span>
             </a>
