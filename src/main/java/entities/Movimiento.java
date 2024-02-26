@@ -19,7 +19,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * @author Carlos Iñiguez
+ * @author Grupo 7
  */
 @Entity
 @Table(name = "Movimiento")
@@ -31,6 +31,15 @@ public class Movimiento implements Serializable {
 	 * Default constructor
 	 */
 	public Movimiento() {
+	}
+
+	public Movimiento(String concepto2, Date fecha2, double valor, Cuenta cuenta, Categoria categoria,
+			TipoMovimiento ingreso) {
+		this.concepto = concepto2;
+		this.fecha = fecha2;
+		this.monto = valor;
+		this.destino = cuenta;
+		this.categoria = categoria;
 	}
 
 	@Id
@@ -61,6 +70,82 @@ public class Movimiento implements Serializable {
 	@ManyToOne
 	@JoinColumn(referencedColumnName = "id")
 	private Categoria categoria;
+
+	
+
+	/**
+	 * @param ingreso
+	 * @return
+	 */
+	public static boolean createIngreso(Movimiento ingreso) {
+		EntityManager em= Persistence.createEntityManagerFactory("persistencia").createEntityManager();
+		try {
+		    em.getTransaction().begin();
+		    em.persist(ingreso);
+		    em.getTransaction().commit();
+		    System.out.println("Inserción exitosa.");
+		    return true;
+		} catch (Exception e) {
+		    em.getTransaction().rollback();
+		    System.err.println("Error durante la inserción: " + e.getMessage());
+		    return false;
+		}
+	}
+
+	/**
+	 * @param gasto
+	 * @return
+	 */
+	public boolean createGasto(Movimiento gasto) {
+		// TODO implement here
+		return false;
+	}
+
+	/**
+	 * @param ingreso
+	 * @param egreso
+	 */
+	public void createTransferencia(Movimiento ingreso, Movimiento egreso) {
+		// TODO implement here
+	}
+
+	/**
+	 * @param id
+	 * @param fecha
+	 * @param monto
+	 * @param concepto
+	 * @return
+	 */
+	public boolean update(int id, Date fecha, double monto, String concepto) {
+		// TODO implement here
+		return false;
+	}
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	public boolean delete(int id) {
+		// TODO implement here
+		return false;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Movimiento> getAllByCuenta(int idCuenta) {
+		return null;
+	}
+	
+	public static List<Movimiento> getAllByDate(Date fecha){
+		return null;
+		
+	}
+	
+	/*****************Getter y setters********************/
+
+	@Override
+	public String toString() {
+		return this.concepto + " " + this.getCategoria().getId();
+	}
 
 	public Integer getId() {
 		return id;
@@ -125,67 +210,4 @@ public class Movimiento implements Serializable {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-
-	/**
-	 * @param ingreso
-	 * @return
-	 */
-	public static void createIngreso(Movimiento ingreso) {
-		
-
-	}
-
-	/**
-	 * @param gasto
-	 * @return
-	 */
-	public boolean createGasto(Movimiento gasto) {
-		// TODO implement here
-		return false;
-	}
-
-	/**
-	 * @param ingreso
-	 * @param egreso
-	 */
-	public void createTransferencia(Movimiento ingreso, Movimiento egreso) {
-		// TODO implement here
-	}
-
-	/**
-	 * @param id
-	 * @param fecha
-	 * @param monto
-	 * @param concepto
-	 * @return
-	 */
-	public boolean update(int id, Date fecha, double monto, String concepto) {
-		// TODO implement here
-		return false;
-	}
-
-	/**
-	 * @param id
-	 * @return
-	 */
-	public boolean delete(int id) {
-		// TODO implement here
-		return false;
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<Movimiento> getAllByCuenta(int idCuenta) {
-		return null;
-	}
-	
-	public static List<Movimiento> getAllByDate(Date fecha){
-		return null;
-		
-	}
-
-	@Override
-	public String toString() {
-		return this.concepto + " " + this.getCategoria().getId();
-	}
-
 }
