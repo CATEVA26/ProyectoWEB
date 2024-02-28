@@ -73,17 +73,18 @@ public class RegistrarMovimientosController extends HttpServlet {
 		Cuenta cuenta = Cuenta.getById(Integer.parseInt(request.getParameter("idCuenta")));
 		Categoria categoria = Categoria.getById(Integer.parseInt(request.getParameter("idCategoria")));
 		// 2.- Llamo al Modelo
+		cuenta.ajustarSaldo(valor);
 		Movimiento movimiento = new Movimiento(concepto, fecha, valor, cuenta, categoria, TipoMovimiento.INGRESO);
+		
 		// 3.- LLamo a la vista
 		boolean creacionExitosa = Movimiento.createIngreso(movimiento);
 		
 		if (creacionExitosa) {
-			request.setAttribute("notificacion", "Insercion exitoso");
+			request.setAttribute("notificacion", "Insercion exitosa");
 		} else {
 			request.setAttribute("notificacion", "Error al ingresar");
 		}
-		request.getRequestDispatcher("/jsp/ingreso.jsp").forward(request,response);
-
+		this.nuevoIngreso(request, response);
 	}
 	
 	private void nuevaTransferencia(HttpServletRequest request, HttpServletResponse response) {

@@ -80,16 +80,16 @@ public class Movimiento implements Serializable {
 	 */
 	public static boolean createIngreso(Movimiento ingreso) {
 		EntityManager em= Persistence.createEntityManagerFactory("persistencia").createEntityManager();
+		em.getTransaction().begin();
 		try {
-		    em.getTransaction().begin();
 		    em.persist(ingreso);
 		    em.getTransaction().commit();
-		    System.out.println("Inserción exitosa.");
 		    return true;
 		} catch (Exception e) {
-		    em.getTransaction().rollback();
-		    System.err.println("Error durante la inserción: " + e.getMessage());
-		    return false;
+			if(em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+		}
+			return false;
 		}
 	}
 

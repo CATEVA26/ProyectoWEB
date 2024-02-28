@@ -112,6 +112,16 @@ public class Cuenta implements Serializable {
      */
     public void ajustarSaldo(double valor) {
         // TODO implement here
+    	double nuevoSaldo=this.total+valor;
+		EntityManager em = Persistence.createEntityManagerFactory("persistencia").createEntityManager();
+		em.getTransaction().begin();
+    	String consultaJPQL = "UPDATE Cuenta c SET c.total = :nuevoTotal WHERE c.id = :id";
+    	Query query =  em.createQuery(consultaJPQL);
+    	query.setParameter("nuevoTotal", nuevoSaldo);
+    	query.setParameter("id", this.id);
+    	int filasActualizadas = query.executeUpdate(); // Ejecutar la consulta de actualización
+        em.getTransaction().commit();
+        em.close();
     }
     
 /*********************** Getters y Setters ************************/
